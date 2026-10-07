@@ -10,16 +10,44 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="col desktop-search">
+                    <div class="search-wrapper d-flex">
+
+                        <div class="search-category d-none d-lg-flex align-items-center px-3 small">
+                            All Categories
+                            <span class="material-symbols-outlined ms-1">
+                                expand_more
+                            </span>
+                        </div>
+
+                        <div class="flex-grow-1 d-flex align-items-center px-2">
+
+                            <span class="material-symbols-outlined text-secondary">
+                                search
+                            </span>
+
+                            <input
+                                type="text"
+                                class="form-control search-input"
+                                placeholder="Find Cars, Mobiles, Jobs, Real Estate and more..."
+                            >
+
+                        </div>
+
+                        <button class="search-button px-3">
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+                        </button>
+
+                    </div>
                 </div>
+                
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -50,6 +78,16 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary rounded-3">Log in</a>
+                    
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="btn btn-outline-secondary rounded-3">Register</a>
+                    @endif
+                    <a href="{{ route('login') }}" class="btn btn-success rounded-3">Add Listing</a>                    
+                    @endauth
+                </div>
             </div>
 
             <!-- Hamburger -->
@@ -72,6 +110,7 @@
             </x-responsive-nav-link>
         </div>
 
+        @auth
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -95,6 +134,21 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @else
+                <a
+                    href="{{ route('login') }}"
+                    class="btn btn-outline-primary rounded-3>
+                    Log in
+                </a>
+
+                @if (Route::has('register'))
+                    <a
+                        href="{{ route('register') }}"
+                        class="btn btn-outline-secondary rounded-3">
+                        Register
+                    </a>
+                @endif
+            @endauth
         </div>
     </div>
 </nav>
