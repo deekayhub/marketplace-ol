@@ -10,7 +10,6 @@ use App\Models\Listing;
 use App\Models\State;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use PHPUnit\Logging\OpenTestReporting\Status;
 use Illuminate\Support\Str;
 
 class ListingController extends Controller
@@ -20,6 +19,11 @@ class ListingController extends Controller
         $category = $request->query('category');
         $search = $request->query('search');
         $city = $request->query('city');
+        $type = $request->query('type');
+        $minPrice = $request->query('min_price');
+        $maxPrice = $request->query('max_price');
+        $sort = $request->query('sort');
+
         $listings = Listing::with(['category'])
             ->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category);
@@ -31,10 +35,31 @@ class ListingController extends Controller
             ->when($city, function ($query) use ($city) {
                 $query->where('city_id', $city);
             })
+            ->when($type, function ($query) use ($type) {
+                $query->where('type', $type);
+            })
+            ->when($minPrice, function ($query) use ($minPrice) {
+                $query->where('price', '>=', $minPrice);
+            })
+            ->when($maxPrice, function ($query) use ($maxPrice) {
+                $query->where('price', '<=', $maxPrice);
+            })
+            ->when($sort, function ($query) use ($sort) {
+                if ($sort === 'price_low') {
+                    $query->orderBy('price', 'asc');
+                } elseif ($sort === 'price_high') {
+                    $query->orderBy('price', 'desc');
+                } elseif ($sort === 'newest') {
+                    $query->orderBy('created_at', 'desc');
+                }
+            })
             ->latest()
-            ->paginate(10);
+            ->paginate(9);
 
-        return view('listing.index', compact('listings'));
+        $categories  = Category::where('status', true)->get();
+        $subcategories = SubCategory::where('status', true)->get();
+
+        return view('listing.index', compact('listings', 'categories', 'subcategories'));
     }
     public function create()
     {
@@ -100,5 +125,16 @@ class ListingController extends Controller
         return redirect()
             ->route('home')
             ->with('success', 'Your listing has been submitted successfully.');
+    }
+
+    public function show($id)
+    {
+        $listing = Listing::with(['user', 'category', 'subCategory', 'images', 'country', 'city'])->findOrFail($id);
+        $relatedListings = Listing::where('category_id', $listing->category_id)
+            ->where('id', '!=', $listing->id)
+            ->latest()
+            ->take(4)
+            ->get();
+        return view('listing.show', compact('listing', 'relatedListings'));
     }
 }

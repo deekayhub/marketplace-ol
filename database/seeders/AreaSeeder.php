@@ -197,10 +197,10 @@ class AreaSeeder extends Seeder
                 Area::updateOrCreate(
                     [
                         'city_id' => $city->id,
-                        'status' => true,
+                        'name' => $areaName,
                     ],
                     [
-                        'name' => $areaName,
+                        'status' => true,
                     ]
                 );
             }

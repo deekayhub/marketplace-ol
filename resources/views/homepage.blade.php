@@ -48,7 +48,7 @@
                                                 location_on
                                             </span>
 
-                                            <select class="form-select border-0 p-0" name="city_id">
+                                            <select class="form-select border-0 p-0" name="city">
                                                 <option value="">All Locations</option>
 
                                                 @foreach($cities as $city)
@@ -77,7 +77,7 @@
                                                 category
                                             </span>
 
-                                            <select class="form-select border-0 p-0" name="category_id">
+                                            <select class="form-select border-0 p-0" name="category">
                                                 <option value="">All Categories</option>
 
                                                 @foreach($categories as $category)
@@ -146,24 +146,6 @@
                     </form>
 
 
-                    <!-- Trending -->
-                    <!-- <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-3">
-
-                        <strong class="small text-muted-custom">
-                            <span class="material-symbols-outlined text-secondary">
-                                trending_up
-                            </span>
-                            Trending:
-                        </strong>
-
-                        <button class="trending-tag">iPhone 15</button>
-                        <button class="trending-tag">Used Honda City</button>
-                        <button class="trending-tag">2 BHK Rent</button>
-                        <button class="trending-tag">MacBook Air M2</button>
-                        <button class="trending-tag">Office Chair</button>
-
-                    </div> -->
-
                 </div>
 
             </section>
@@ -227,8 +209,6 @@
             </section>
 
 
-            <!-- Recommendations -->
-
             <section class="mb-5">
 
                 <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
@@ -260,84 +240,62 @@
 
                 <div class="row g-3">
 
-                    @dump($listings->toArray())
 
                     @foreach($listings as $listing)
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <article class="listing-card h-100">
-                                <div class="listing-image-wrapper">
-                                   <img
-                                    src="{{ $listing->images->first() ? asset('storage/' . $listing->images->first()->image) : 'https://placehold.net/600x600.png' }}"
-                                    alt="{{ $listing->title ?? 'Listing Image' }}"
-                                    class="listing-image"
-                                >
-
-                                    @if($listing['badge'])
-                                        <span
-                                            class="listing-badge
-                                            {{ $listing['badge'] === 'Verified Seller'
-                                                ? 'badge-verified'
-                                                : 'badge-featured' }}">
-                                            {{ $listing['badge'] }}
-                                        </span>
-                                    @endif
-
-                                    {{-- <button
-                                        type="button"
-                                        class="favorite-btn"
-                                        aria-label="Favorite listing"
+                            <a href="{{ route('listings.show', $listing->id) }}" class="text-decoration-none text-dark  h-100">
+                                <article class="listing-card h-100">
+                                    <div class="listing-image-wrapper">
+                                    <img
+                                        src="{{ $listing->images->first() ? asset('storage/' . $listing->images->first()->image) : 'https://placehold.net/600x600.png' }}"
+                                        alt="{{ $listing->title ?? 'Listing Image' }}"
+                                        class="listing-image"
                                     >
-                                        <span class="material-symbols-outlined">
-                                            favorite
-                                        </span>
-                                    </button> --}}
 
-                                    {{-- <span class="photo-count">
-                                        1/6 Photos
-                                    </span> --}}
-
-                                </div>
-
-
-                                <div class="p-3 d-flex flex-column h-100">
-
-                                    <div class="d-flex justify-content-between align-items-start mb-1">
-
-                                        <span class="listing-price">
-                                            {{ $listing['price'] }}
-                                        </span>
-
-                                        <span class="condition-badge">
-                                            {{ $listing->category?->name }}
-                                        </span>
+                                        @if($listing['badge'])
+                                            <span
+                                                class="listing-badge
+                                                {{ $listing['badge'] === 'Verified Seller'
+                                                    ? 'badge-verified'
+                                                    : 'badge-featured' }}">
+                                                {{ $listing['badge'] }}
+                                            </span>
+                                        @endif
 
                                     </div>
 
-                                    <h3 class="listing-title mb-3">
-                                        {{ $listing['title'] }}
-                                    </h3>
 
-                                    <div class="listing-meta pt-2 mt-auto d-flex justify-content-between">
+                                    <div class="p-3 d-flex flex-column h-100">
 
-                                        <span class="text-truncate">
-                                            <span class="material-symbols-outlined"
-                                                  style="font-size:14px;">
-                                                location_on
+                                        <div class="d-flex justify-content-between align-items-start mb-1">
+
+                                            <span class="listing-price">
+                                                ₹ {{ number_format($listing['price'], 2) }}
                                             </span>
 
-                                            {{ $listing['location'] }}
-                                        </span>
+                                            <span class="condition-badge">
+                                                {{ $listing->category?->name }}
+                                            </span>
 
-                                        <span class="ms-2 text-nowrap">
-                                            {{ $listing['time'] }}
-                                        </span>
+                                        </div>
+
+                                        <h3 class="listing-title mb-3">
+                                            {{ $listing->title }}
+                                        </h3>
+                                        <p class=" mb-3">
+                                            {{ $listing->description }}
+                                        </p>
+
+                                        <div class="d-flex justify-content-between small text-muted-custom mt-3">
+                                            <span>{{ $listing->area->name }}, {{ $listing->city->name }}</span>
+                                            <span>{{ $listing->created_at->diffForHumans() }}</span>
+                                        </div>
 
                                     </div>
 
-                                </div>
-
-                            </article>
+                                </article>
+                            </a>
 
                         </div>
 

@@ -7,6 +7,7 @@ use Database\Seeders\CategorySeeder;
 use Database\Seeders\CitySeeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\StateSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,12 +28,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            UserSeeder::class,
             CategorySeeder::class,
             SubcategorySeeder::class,
             CountrySeeder::class,
             StateSeeder::class,
             CitySeeder::class,
             AreaSeeder::class,
+            ListingSeeder::class,
         ]);
     }
 }

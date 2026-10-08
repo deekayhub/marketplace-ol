@@ -31,15 +31,28 @@ class Listing extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
 
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function area()
     {
-        return $this->belongsTo(Area::class);
+        return $this->belongsTo(Area::class, 'area_id');
     }
     public function images()
     {

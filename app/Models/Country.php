@@ -11,5 +11,4 @@ class Country extends Model
         'code',
         'status',
     ];
-
 }

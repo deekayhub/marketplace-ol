@@ -14,7 +14,7 @@ class HomeController extends Controller
         $categories = Category::withCount('listings')->where('status', true)->get();
         $cities = City::where('status', true)->get();
 
-        $listings = Listing::with('category', 'images')->where('status', true)->latest()->take(10)->get();
+        $listings = Listing::with('category', 'images', 'country', 'state', 'city', 'area')->where('status', true)->latest()->take(12)->get();
         return view('homepage', compact('categories', 'listings', 'cities'));
     }
 }

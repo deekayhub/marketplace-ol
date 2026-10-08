@@ -17,36 +17,7 @@
 
                 <!-- Search -->
                 <div class="col desktop-search">
-                    {{-- <div class="search-wrapper d-flex">
 
-                        <div class="search-category d-none d-lg-flex align-items-center px-3 small">
-                            All Categories
-                            <span class="material-symbols-outlined ms-1">
-                                expand_more
-                            </span>
-                        </div>
-
-                        <div class="flex-grow-1 d-flex align-items-center px-2">
-
-                            <span class="material-symbols-outlined text-secondary">
-                                search
-                            </span>
-
-                            <input
-                                type="text"
-                                class="form-control search-input"
-                                placeholder="Find Cars, Mobiles, Jobs, Real Estate and more..."
-                            >
-
-                        </div>
-
-                        <button class="search-button px-3">
-                            <span class="material-symbols-outlined">
-                                search
-                            </span>
-                        </button>
-
-                    </div> --}}
                 </div>
 
                 <!-- Login/Register -->
@@ -69,6 +40,9 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('my-listings')">
+                                {{ __('My Listings') }}
+                            </x-dropdown-link>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -89,7 +63,6 @@
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="btn btn-outline-secondary rounded-3">Register</a>
                         @endif
-                        <a href="{{ route('login') }}" class="btn btn-success rounded-3">Add Listing</a>
                     </div>
                     @endauth
                 </div>
@@ -112,24 +85,5 @@
 
             </div>
         </div>
-
-        <!-- Categories -->
-        {{-- <div class="category-nav">
-            <div class="container-fluid max-width h-100">
-
-                <div class="d-flex align-items-center gap-4 h-100 overflow-auto">
-
-                    <a href="#">Mobile Phones</a>
-                    <a href="#">Cars & Vehicles</a>
-                    <a href="#">Real Estate & Properties</a>
-                    <a href="#">Electronics & Appliances</a>
-                    <a href="#">Furniture</a>
-                    <a href="#">Jobs & Services</a>
-                    <a href="#">Fashion</a>
-
-                </div>
-
-            </div>
-        </div> --}}
 
     </header>

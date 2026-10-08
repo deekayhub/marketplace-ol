@@ -1,18 +1,10 @@
 <footer class="mt-5">
 
-        <div class="container-fluid max-width pt-5 pb-4">
-
-
-
-
-            <hr class="my-4">
-
-
+        <div class="container-fluid max-width py-3">
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
 
                 <p class="small text-muted-custom mb-0">
-                    © 2025 TradeHub
-                    .
+                    © 2026 TradeHub
                 </p>
 
                 <div class="d-flex gap-3 small">
