@@ -221,3 +221,1559 @@
         @endif
     </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TradeHub - Modern Classifieds Marketplace</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Material Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8f9ff;
+            color: #0b1c30;
+        }
+
+        .material-symbols-outlined {
+            font-size: 20px;
+            vertical-align: middle;
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 500,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+
+        :root {
+            --primary: #005c55;
+            --primary-container: #0f766e;
+            --surface: #f8f9ff;
+            --surface-low: #eff4ff;
+            --surface-container: #e5eeff;
+            --surface-high: #dce9ff;
+            --surface-highest: #d3e4fe;
+            --text: #0b1c30;
+            --text-muted: #3e4947;
+            --border: #bdc9c6;
+            --secondary: #904d00;
+        }
+
+        .text-primary-custom {
+            color: var(--primary) !important;
+        }
+
+        .bg-primary-custom {
+            background-color: var(--primary) !important;
+        }
+
+        .bg-surface {
+            background-color: var(--surface);
+        }
+
+        .bg-surface-low {
+            background-color: var(--surface-low);
+        }
+
+        .bg-surface-container {
+            background-color: var(--surface-container);
+        }
+
+        .bg-surface-high {
+            background-color: var(--surface-high);
+        }
+
+        .bg-surface-highest {
+            background-color: var(--surface-highest);
+        }
+
+        .text-muted-custom {
+            color: var(--text-muted) !important;
+        }
+
+        .max-width {
+            max-width: 1280px;
+        }
+
+        /* Header */
+
+        .main-header {
+            background: #fff;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-top {
+            min-height: 64px;
+        }
+
+        .header-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .search-wrapper {
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .search-category {
+            background: var(--surface-low);
+            border-right: 1px solid var(--border);
+        }
+
+        .search-input {
+            border: 0;
+            outline: none;
+            box-shadow: none !important;
+        }
+
+        .search-button {
+            background: var(--primary);
+            color: white;
+            border: 0;
+        }
+
+        .search-button:hover {
+            background: var(--primary-container);
+            color: white;
+        }
+
+        .sell-button {
+            background: var(--primary-container);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .sell-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .profile-img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+        }
+
+        .category-nav {
+            height: 48px;
+            border-top: 1px solid rgba(189, 201, 198, .3);
+        }
+
+        .category-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .category-nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Main */
+
+        main {
+            padding-top: 128px;
+        }
+
+        .notification-strip {
+            background: var(--surface-high);
+            border-radius: 12px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary-container);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Hero */
+
+        .hero {
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, .08);
+        }
+
+        .hero-badge {
+            background: var(--surface-high);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            line-height: 1.25;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .quick-search {
+            background: var(--surface-low);
+            border-radius: 12px;
+        }
+
+        .search-field {
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .search-field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .search-field select,
+        .search-field input {
+            border: 0;
+            outline: none;
+            box-shadow: none;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .trending-tag {
+            background: var(--surface-high);
+            border: 0;
+            border-radius: 50px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .trending-tag:hover {
+            background: var(--surface-container);
+        }
+
+        /* Cards */
+
+        .location-card,
+        .category-card,
+        .listing-card {
+            background: #fff;
+            border: 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 7px rgba(15, 23, 42, .05);
+            transition: all .2s ease;
+        }
+
+        .location-card:hover,
+        .category-card:hover,
+        .listing-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15, 23, 42, .10);
+        }
+
+        .location-card {
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .location-card:hover {
+            color: var(--primary);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--surface-container);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-card {
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .category-card:hover {
+            color: var(--primary);
+        }
+
+        /* Listing */
+
+        .listing-card {
+            overflow: hidden;
+        }
+
+        .listing-image-wrapper {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: var(--surface-container);
+        }
+
+        .listing-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .3s ease;
+        }
+
+        .listing-card:hover .listing-image {
+            transform: scale(1.05);
+        }
+
+        .listing-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        .badge-featured {
+            background: #ffdcc3;
+            color: #663500;
+        }
+
+        .badge-verified {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-urgent {
+            background: #ba1a1a;
+            color: white;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 0;
+            background: rgba(255,255,255,.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favorite-btn:hover {
+            color: #ba1a1a;
+        }
+
+        .photo-count {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            background: rgba(33,49,69,.75);
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        .listing-price {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .listing-title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .listing-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--surface-container);
+        }
+
+        .condition-badge {
+            background: var(--surface-high);
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        /* Trust */
+
+        .trust-section {
+            background: var(--surface-container);
+            border-radius: 12px;
+        }
+
+        .trust-card {
+            background: #fff;
+            border-radius: 12px;
+        }
+
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface-high);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CTA */
+
+        .cta-section {
+            background: var(--surface-highest);
+            border-radius: 12px;
+        }
+
+        .cta-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: var(--primary-container);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+
+        footer {
+            background: var(--surface-low);
+            border-top: 1px solid rgba(189, 201, 198, .4);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile */
+
+        @media (max-width: 767px) {
+            main {
+                padding-top: 80px;
+            }
+
+            .hero {
+                border-radius: 20px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .header-top {
+                min-height: 64px;
+            }
+
+            .desktop-search {
+                display: none !important;
+            }
+
+            .desktop-login {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="main-header">
+
+        <!-- Top Header -->
+        <div class="container-fluid max-width header-top">
+            <div class="row align-items-center h-100 py-2">
+
+                <!-- Logo -->
+                <div class="col-auto">
+                    <a href="{{ url('/') }}"
+                       class="d-flex align-items-center gap-2 text-decoration-none">
+
+                        <img
+                            src="https://lh3.googleusercontent.com/aida/AEtjO1WND2cW0pAcdGVcxOTvm6yuix1WaX2RgJ0I0MsyhEIgaPSBL33S0D3OSrZATfPD-vbzTsV4W1EKWtRHVRz_ionRWh6trDdIDwTWsJiYv14RtjiBmqHD9XUnxe31rmSBqBeHlIr7rMNGiq5CLZqBZW2InFhdBRoZw8-kEhoCPJ-GD6Unv3xsC_t2BXbcLX2rxi-sSmczOWeiXUH0YaAU_NtbUczAizaa7D7wsDCf5nh99A"
+                            alt="TradeHub Logo"
+                            class="header-logo"
+                        >
+
+                        <span class="fw-bold text-primary-custom d-none d-sm-inline">
+                            TradeHub
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Location -->
+                <div class="col-auto d-none d-md-block">
+                    <div class="bg-surface-low rounded px-2 py-1 small">
+                        <span class="material-symbols-outlined text-primary-custom">
+                            location_on
+                        </span>
+                        Chandigarh, IN
+                        <span class="material-symbols-outlined small">
+                            arrow_drop_down
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="col desktop-search">
+                    <div class="search-wrapper d-flex">
+
+                        <div class="search-category d-none d-lg-flex align-items-center px-3 small">
+                            All Categories
+                            <span class="material-symbols-outlined ms-1">
+                                expand_more
+                            </span>
+                        </div>
+
+                        <div class="flex-grow-1 d-flex align-items-center px-2">
+
+                            <span class="material-symbols-outlined text-secondary">
+                                search
+                            </span>
+
+                            <input
+                                type="text"
+                                class="form-control search-input"
+                                placeholder="Find Cars, Mobiles, Jobs, Real Estate and more..."
+                            >
+
+                        </div>
+
+                        <button class="search-button px-3">
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- Login/Register -->
+                <div class="col-auto desktop-login">
+                    <div class="d-flex align-items-center gap-2 small">
+
+                        <a href="{{ route('login') }}"
+                           class="text-decoration-none text-muted-custom">
+                            Login
+                        </a>
+
+                        <span>|</span>
+
+                        <a href="{{ route('register') }}"
+                           class="text-decoration-none text-muted-custom">
+                            Register
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Sell -->
+                <div class="col-auto">
+
+                    <a href="#"
+                       class="sell-button px-3 py-2 d-flex align-items-center gap-1">
+
+                        <span class="material-symbols-outlined">
+                            add_circle
+                        </span>
+
+                        <span>+ Sell</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="category-nav">
+            <div class="container-fluid max-width h-100">
+
+                <div class="d-flex align-items-center gap-4 h-100 overflow-auto">
+
+                    <a href="#">Mobile Phones</a>
+                    <a href="#">Cars & Vehicles</a>
+                    <a href="#">Real Estate & Properties</a>
+                    <a href="#">Electronics & Appliances</a>
+                    <a href="#">Furniture</a>
+                    <a href="#">Jobs & Services</a>
+                    <a href="#">Fashion</a>
+
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <div class="container-fluid max-width py-3">
+
+            <!-- Notification -->
+            <section class="notification-strip p-2 mb-4">
+
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <span class="material-symbols-outlined text-primary-custom">
+                            verified_user
+                        </span>
+
+                        <strong class="small text-uppercase">
+                            Buyer Protection 100% Active
+                        </strong>
+
+                        <span class="small text-muted-custom d-none d-md-inline">
+                            • Verified sellers and zero fee direct escrow
+                        </span>
+
+                    </div>
+
+                    <div class="small text-muted-custom">
+
+                        <span class="live-dot me-1"></span>
+                        42,890 Live Local Ads
+
+                        <span class="text-primary-custom fw-semibold ms-3">
+                            Download App
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Hero -->
+            <section class="hero p-4 p-lg-5 mb-5">
+
+                <div class="mx-auto text-center" style="max-width: 900px;">
+
+                    <span class="hero-badge px-3 py-2 d-inline-flex align-items-center gap-1 mb-3">
+
+                        <span class="material-symbols-outlined">
+                            bolt
+                        </span>
+
+                        HYPERLOCAL CLASSIFIEDS
+
+                    </span>
+
+                    <h1 class="hero-title mb-2">
+                        Buy & Sell Anything
+                        <span class="text-primary-custom">
+                            Near You
+                        </span>
+                    </h1>
+
+                    <p class="text-muted-custom mb-4">
+                        The trusted neighborhood marketplace for verified electronics,
+                        genuine vehicles, trusted real estate, and daily local bargains.
+                    </p>
+
+
+                    <!-- Search Box -->
+                    <div class="quick-search p-2">
+
+                        <div class="row g-2">
+
+                            <!-- Location -->
+                            <div class="col-12 col-md-3">
+
+                                <div class="search-field p-2 h-100 text-start">
+
+                                    <label>
+                                        Location
+                                    </label>
+
+                                    <div class="d-flex align-items-center">
+
+                                        <span class="material-symbols-outlined text-primary-custom me-1">
+                                            location_on
+                                        </span>
+
+                                        <select class="form-select border-0 p-0">
+                                            <option>Chandigarh</option>
+                                            <option>Mohali</option>
+                                            <option>Panchkula</option>
+                                            <option>Delhi NCR</option>
+                                            <option>Mumbai</option>
+                                            <option>Bengaluru</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Category -->
+                            <div class="col-12 col-md-3">
+
+                                <div class="search-field p-2 h-100 text-start">
+
+                                    <label>
+                                        Category
+                                    </label>
+
+                                    <div class="d-flex align-items-center">
+
+                                        <span class="material-symbols-outlined text-primary-custom me-1">
+                                            category
+                                        </span>
+
+                                        <select class="form-select border-0 p-0">
+
+                                            <option>All Categories</option>
+                                            <option>Mobile Phones</option>
+                                            <option>Cars</option>
+                                            <option>Properties</option>
+                                            <option>Electronics</option>
+                                            <option>Furniture</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Keyword -->
+                            <div class="col-12 col-md">
+
+                                <div class="search-field p-2 h-100 text-start">
+
+                                    <label>
+                                        Keyword
+                                    </label>
+
+                                    <div class="d-flex align-items-center">
+
+                                        <span class="material-symbols-outlined text-secondary me-1">
+                                            search
+                                        </span>
+
+                                        <input
+                                            id="search-query"
+                                            type="text"
+                                            class="form-control p-0"
+                                            placeholder="iPhone 15, Honda City, 2 BHK..."
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Button -->
+                            <div class="col-12 col-md-auto">
+
+                                <button
+                                    type="button"
+                                    class="btn bg-primary-custom text-white h-100 px-4 d-flex align-items-center justify-content-center gap-1"
+                                >
+
+                                    <span class="material-symbols-outlined">
+                                        search
+                                    </span>
+
+                                    Find Deals
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Trending -->
+                    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-3">
+
+                        <strong class="small text-muted-custom">
+                            <span class="material-symbols-outlined text-secondary">
+                                trending_up
+                            </span>
+                            Trending:
+                        </strong>
+
+                        <button class="trending-tag">iPhone 15</button>
+                        <button class="trending-tag">Used Honda City</button>
+                        <button class="trending-tag">2 BHK Rent</button>
+                        <button class="trending-tag">MacBook Air M2</button>
+                        <button class="trending-tag">Office Chair</button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Popular Locations -->
+
+            <section class="mb-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <h2 class="h5 fw-semibold mb-0">
+                        <span class="material-symbols-outlined text-primary-custom">
+                            explore
+                        </span>
+                        Explore Popular Hubs
+                    </h2>
+
+                    <a href="#" class="small text-primary-custom fw-bold">
+                        View all regions →
+                    </a>
+
+                </div>
+
+
+                <div class="row g-2">
+
+                    @foreach([
+                        ['Chandigarh','4,820'],
+                        ['Mohali','2,100'],
+                        ['Panchkula','1,640'],
+                        ['Delhi NCR','18,400'],
+                        ['Mumbai','14,200'],
+                        ['Bengaluru','11,900'],
+                    ] as $location)
+
+                        <div class="col-6 col-sm-4 col-lg-2">
+
+                            <a href="#"
+                               class="location-card p-3 d-flex flex-column h-100">
+
+                                <strong class="small">
+                                    {{ $location[0] }}
+                                </strong>
+
+                                <span class="text-muted-custom small">
+                                    {{ $location[1] }} active ads
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+            </section>
+
+
+            <!-- Categories -->
+
+            <section class="mb-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">
+                            Browse All Categories
+                        </h2>
+
+                        <p class="text-muted-custom small mb-0">
+                            Select an industry vertical to discover verified bargains nearby
+                        </p>
+                    </div>
+
+                    <a href="#" class="text-primary-custom fw-semibold small">
+                        Full Directory →
+                    </a>
+
+                </div>
+
+
+                <div class="row g-2">
+
+                    @php
+                        $categories = [
+                            ['smartphone', 'Mobiles', '1,420'],
+                            ['directions_car', 'Cars & Vehicles', '850'],
+                            ['real_estate_agent', 'Real Estate', '610'],
+                            ['tv', 'Electronics', '1,140'],
+                            ['domain', 'Commercial', '230'],
+                            ['chair', 'Furniture', '940'],
+                            ['two_wheeler', 'Bikes & Scooters', '510'],
+                            ['work', 'Jobs & Career', '380'],
+                            ['pets', 'Pets & Animals', '190'],
+                            ['styler', 'Fashion', '780'],
+                            ['menu_book', 'Books & Hobbies', '310'],
+                            ['home_repair_service', 'Services', '460'],
+                        ];
+                    @endphp
+
+
+                    @foreach($categories as $category)
+
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+
+                            <a href="#"
+                               class="category-card p-3 d-flex flex-column align-items-center text-center h-100">
+
+                                <div class="category-icon mb-2">
+
+                                    <span class="material-symbols-outlined">
+                                        {{ $category[0] }}
+                                    </span>
+
+                                </div>
+
+                                <strong class="small">
+                                    {{ $category[1] }}
+                                </strong>
+
+                                <span class="text-muted-custom" style="font-size:11px;">
+                                    {{ $category[2] }} ads
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+            </section>
+
+
+            <!-- Recommendations -->
+
+            <section class="mb-5">
+
+                <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+
+                    <div>
+
+                        <h2 class="h4 fw-bold mb-1">
+
+                            <span class="material-symbols-outlined text-warning">
+                                local_fire_department
+                            </span>
+
+                            Fresh Recommendations
+
+                        </h2>
+
+                        <p class="text-muted-custom small mb-0">
+                            Live listings posted recently in your regional radius
+                        </p>
+
+                    </div>
+
+                    <div class="btn-group btn-group-sm">
+
+                        <button class="btn bg-surface-high text-primary-custom fw-bold">
+                            All
+                        </button>
+
+                        <button class="btn btn-light">
+                            Verified Only
+                        </button>
+
+                        <button class="btn btn-light">
+                            Urgent Deals
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row g-3">
+
+                    @php
+                        $listings = [
+                            [
+                                'image' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDxi14a3HKJ7GPdtBpoTSnAvp7k6OU11ocmSx0wgXjP6kpk-MFdLtx9klFBJILJBcZx5kSF3JD7I6yyWYrv0LykQibpy71B1vIVCtlBsHEukriGldEZQEr4A09e0U7aF8tFFQ24_-4Vrvls1u25BYdHaWFcafGFKbQxBCj-oNSo-1y4ZFBODCslsRRI3LQEh8fUv8uL1ZZFMftpnTUO3a5kNn9hnU65GUUvTUlLGMvL',
+                                'price' => '₹ 48,500',
+                                'title' => 'Apple iPhone 14 Pro - 128GB Deep Purple (With Bill & Box)',
+                                'location' => 'Sector 17, Chandigarh',
+                                'time' => '2 hrs ago',
+                                'badge' => 'Featured',
+                            ],
+                            [
+                                'image' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDl-ir5SzV_Z3ORqpvQFHA8mdBmfdMYxbC12g88DVmXD3jFQQjGqg2nOz035qEKST4xpVt5RZfK3TV4SgLnf_241eRlGNGOYeETO-ei0On8KPq2zZtT06dr0bVVLZU2MWAPekos_XicIjdNQTtbVT9GpNrxxaMhtOv8-jwxN6rpC-sO8v5a4BYPIwgavQ-wY2sZM0V8AUddQDJZ3gNDbn7Rrg8ozcYA8byj5iAyYQnb',
+                                'price' => '₹ 6,80,000',
+                                'title' => 'Honda City 1.5 V i-VTEC Petrol Single Owner Pristine',
+                                'location' => 'Phase 7, Mohali',
+                                'time' => '5 hrs ago',
+                                'badge' => 'Verified Seller',
+                            ],
+                            [
+                                'image' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZUwOQZxzEBDlhbgPyQtqx42bfycc8whoXolFpkkjs5GGNR0CM4GGStj8Kyg7_AEf8ECexAOvxlnGI5XhyRC8KlIY7GtLAKkrNopfmY3da_y0pPckHtQkvR4rvIBLsoVTiiUIfkIS6_AP7B9zB_IV72PuDDJfyQOLonch19L_6n1sPCxxKfhh-NAqtQ7Mhl74a8bkeRhMP_p_k59mpMSR47LLP1bYEGoC2mVrDrn94',
+                                'price' => '₹ 22,000 /mo',
+                                'title' => 'Spacious 2 BHK Luxury Flat in Gated Society with Covered Car Parking',
+                                'location' => 'Sector 20, Panchkula',
+                                'time' => 'Today',
+                                'badge' => 'Featured',
+                            ],
+                            [
+                                'image' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBziIaa76C-FdD4OiHUzH3V5qcDA3P7xum7tue7mEZBs7LRrKPoEeQCWCJXGP_AUmvIlZFcVI-wqvZrIpB87K258KmPDXlE2j3kszLsH6yZMCqrPLrepliPrRihj8dPgIfGzXV4NvHeCFEGDRe2_E2-Matl0UgShb0cY-Ok-MoCHAd8hvxxJwbPJe6PyYmvppdeMdtbY8_ZLCReMBVlDXYHsnuQJ1MImYB69HAGbfDs',
+                                'price' => '₹ 74,000',
+                                'title' => 'MacBook Air M2 13.6-inch - 8GB / 256GB SSD Midnight',
+                                'location' => 'Sector 35, Chandigarh',
+                                'time' => '6 hrs ago',
+                                'badge' => '',
+                            ],
+                        ];
+                    @endphp
+
+
+                    @foreach($listings as $listing)
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+
+                            <article class="listing-card h-100">
+
+                                <div class="listing-image-wrapper">
+
+                                    <img
+                                        src="{{ $listing['image'] }}"
+                                        alt="{{ $listing['title'] }}"
+                                        class="listing-image"
+                                    >
+
+                                    @if($listing['badge'])
+                                        <span
+                                            class="listing-badge
+                                            {{ $listing['badge'] === 'Verified Seller'
+                                                ? 'badge-verified'
+                                                : 'badge-featured' }}">
+                                            {{ $listing['badge'] }}
+                                        </span>
+                                    @endif
+
+                                    <button
+                                        type="button"
+                                        class="favorite-btn"
+                                        aria-label="Favorite listing"
+                                    >
+                                        <span class="material-symbols-outlined">
+                                            favorite
+                                        </span>
+                                    </button>
+
+                                    <span class="photo-count">
+                                        1/6 Photos
+                                    </span>
+
+                                </div>
+
+
+                                <div class="p-3 d-flex flex-column h-100">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+
+                                        <span class="listing-price">
+                                            {{ $listing['price'] }}
+                                        </span>
+
+                                        <span class="condition-badge">
+                                            Good
+                                        </span>
+
+                                    </div>
+
+                                    <h3 class="listing-title mb-3">
+                                        {{ $listing['title'] }}
+                                    </h3>
+
+                                    <div class="listing-meta pt-2 mt-auto d-flex justify-content-between">
+
+                                        <span class="text-truncate">
+                                            <span class="material-symbols-outlined"
+                                                  style="font-size:14px;">
+                                                location_on
+                                            </span>
+
+                                            {{ $listing['location'] }}
+                                        </span>
+
+                                        <span class="ms-2 text-nowrap">
+                                            {{ $listing['time'] }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+
+                <div class="text-center mt-4">
+
+                    <button class="btn btn-light px-4">
+
+                        Load More Recommendations
+
+                        <span class="material-symbols-outlined">
+                            expand_more
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Trust & Safety -->
+
+            <section class="trust-section p-4 mb-5">
+
+                <div class="text-center mb-4">
+
+                    <h3 class="h5 fw-bold">
+                        <span class="material-symbols-outlined text-primary-custom">
+                            shield
+                        </span>
+
+                        TradeHub Trust & Safety Assurance
+                    </h3>
+
+                </div>
+
+
+                <div class="row g-3 text-center">
+
+                    <div class="col-12 col-md-4">
+
+                        <div class="trust-card p-4 h-100">
+
+                            <div class="trust-icon mx-auto mb-2">
+
+                                <span class="material-symbols-outlined">
+                                    visibility
+                                </span>
+
+                            </div>
+
+                            <h4 class="h6 fw-semibold">
+                                Inspect Before Buying
+                            </h4>
+
+                            <p class="small text-muted-custom mb-0">
+                                Check items in person thoroughly. Verify IMEI numbers,
+                                chassis plates, and ownership receipts.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-4">
+
+                        <div class="trust-card p-4 h-100">
+
+                            <div class="trust-icon mx-auto mb-2">
+
+                                <span class="material-symbols-outlined">
+                                    groups
+                                </span>
+
+                            </div>
+
+                            <h4 class="h6 fw-semibold">
+                                Meet in Public Spaces
+                            </h4>
+
+                            <p class="small text-muted-custom mb-0">
+                                Complete exchanges at well-lit public spots,
+                                metro stations, or popular commercial hubs.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-4">
+
+                        <div class="trust-card p-4 h-100">
+
+                            <div class="trust-icon mx-auto mb-2">
+
+                                <span class="material-symbols-outlined">
+                                    security_update_warning
+                                </span>
+
+                            </div>
+
+                            <h4 class="h6 fw-semibold">
+                                Never Send Advance Deposits
+                            </h4>
+
+                            <p class="small text-muted-custom mb-0">
+                                Avoid online token transfers or shipping fees before
+                                physically inspecting the genuine product.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- CTA -->
+
+            <section class="cta-section p-4 mb-4">
+
+                <div class="row align-items-center g-4">
+
+                    <div class="col-md">
+
+                        <div class="d-flex align-items-center gap-3">
+
+                            <div class="cta-icon d-none d-sm-flex">
+
+                                <span class="material-symbols-outlined"
+                                      style="font-size:34px;">
+                                    add_business
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <span class="text-uppercase text-warning fw-bold small">
+                                    Fast • 100% Free • Direct Contacts
+                                </span>
+
+                                <h2 class="h4 fw-bold mt-1">
+                                    Got something to sell?
+                                    Post your ad in 60 seconds
+                                </h2>
+
+                                <p class="small text-muted-custom mb-0">
+                                    Reach thousands of active buyers in your immediate
+                                    neighborhood. No middlemen fees or listing commissions.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-auto">
+
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+
+                            <a href="#"
+                               class="btn bg-primary-custom text-white px-4">
+
+                                <span class="material-symbols-outlined">
+                                    add_circle
+                                </span>
+
+                                + Post Listing
+
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-light px-4">
+
+                                Seller Guide
+
+                                <span class="material-symbols-outlined">
+                                    help_outline
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="mt-5">
+
+        <div class="container-fluid max-width pt-5 pb-4">
+
+            <div class="row g-4">
+
+                <!-- Locations -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <h3 class="small fw-bold text-uppercase mb-3">
+                        Popular Locations
+                    </h3>
+
+                    <ul class="list-unstyled small text-muted-custom">
+
+                        <li class="mb-2">
+                            <a href="#">Chandigarh & Tri-City</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Delhi NCR</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Mumbai Metropolitan</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Bengaluru Urban</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Pune City</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Categories -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <h3 class="small fw-bold text-uppercase mb-3">
+                        Trending Categories
+                    </h3>
+
+                    <ul class="list-unstyled small">
+
+                        <li class="mb-2">
+                            <a href="#">Used Cars for Sale</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Smartphones & Tablets</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Apartments for Rent</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">IT & Developer Jobs</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Commercial Properties</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- About -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <h3 class="small fw-bold text-uppercase mb-3">
+                        About TradeHub
+                    </h3>
+
+                    <ul class="list-unstyled small">
+
+                        <li class="mb-2">
+                            <a href="#">About TradeHub</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Careers</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">TradeHub for Businesses</a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#">Press & Media</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Trust & Safety</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Support -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <h3 class="small fw-bold text-uppercase mb-3">
+                        Help & Support
+                    </h3>
+
+                    <p class="small text-muted-custom">
+                        Need assistance with your ad, payments, or account verification?
+                    </p>
+
+                    <div class="small text-muted-custom mb-2">
+
+                        <span class="material-symbols-outlined text-primary-custom">
+                            support_agent
+                        </span>
+
+                        24/7 Helpline: 1800-TRADE-HUB
+
+                    </div>
+
+                    <div class="small text-muted-custom">
+
+                        <span class="material-symbols-outlined text-primary-custom">
+                            verified_user
+                        </span>
+
+                        Buyer Protection Assurance
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr class="my-4">
+
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+
+                <p class="small text-muted-custom mb-0">
+                    © 2025 TradeHub Classifieds.
+                    Realistic PHP/Laravel assessment structure.
+                </p>
+
+                <div class="d-flex gap-3 small">
+
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Sitemap</a>
+                    <a href="#">Security</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- Trending Search -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const searchInput = document.getElementById('search-query');
+
+            document.querySelectorAll('.trending-tag').forEach(function (button) {
+
+                button.addEventListener('click', function () {
+
+                    searchInput.value = this.textContent.trim();
+                    searchInput.focus();
+
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
