@@ -17,7 +17,7 @@
 
                 <!-- Search -->
                 <div class="col desktop-search">
-                    <div class="search-wrapper d-flex">
+                    {{-- <div class="search-wrapper d-flex">
 
                         <div class="search-category d-none d-lg-flex align-items-center px-3 small">
                             All Categories
@@ -46,39 +46,65 @@
                             </span>
                         </button>
 
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Login/Register -->
                 <div class="col-auto desktop-login">
-                    <div class="d-flex align-items-center gap-2 small">
+                    @auth
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ Auth::user()->name }}</div>
 
-                        <a href="{{ route('login') }}"
-                           class="text-decoration-none text-muted-custom">
-                            Login
-                        </a>
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
 
-                        <span>|</span>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.edit')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
 
-                        <a href="{{ route('register') }}"
-                           class="text-decoration-none text-muted-custom">
-                            Register
-                        </a>
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
+                                <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                    @else
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary rounded-3">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-outline-secondary rounded-3">Register</a>
+                        @endif
+                        <a href="{{ route('login') }}" class="btn btn-success rounded-3">Add Listing</a>
                     </div>
+                    @endauth
                 </div>
 
                 <!-- Sell -->
                 <div class="col-auto">
 
-                    <a href="#"
+                    <a href="{{ route('listing.create') }}"
                        class="sell-button px-3 py-2 d-flex align-items-center gap-1">
 
                         <span class="material-symbols-outlined">
                             add_circle
                         </span>
 
-                        <span>+ Sell</span>
+                        <span>Listing</span>
 
                     </a>
 
@@ -88,7 +114,7 @@
         </div>
 
         <!-- Categories -->
-        <div class="category-nav">
+        {{-- <div class="category-nav">
             <div class="container-fluid max-width h-100">
 
                 <div class="d-flex align-items-center gap-4 h-100 overflow-auto">
@@ -104,6 +130,6 @@
                 </div>
 
             </div>
-        </div>
+        </div> --}}
 
     </header>

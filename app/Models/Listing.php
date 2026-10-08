@@ -8,12 +8,17 @@ class Listing extends Model
 {
     protected $fillable = [
         'user_id',
+        'type',
         'title',
+        'slug',
         'description',
-        'price',
         'category_id',
+        'sub_category_id',
+        'country_id',
+        'state_id',
         'city_id',
         'area_id',
+        'price',
         'status',
     ];
 
@@ -35,5 +40,9 @@ class Listing extends Model
     public function area()
     {
         return $this->belongsTo(Area::class);
-    }   
+    }
+    public function images()
+    {
+        return $this->hasMany(ListingImage::class);
+    }
 }

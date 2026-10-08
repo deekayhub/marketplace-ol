@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use Database\Seeders\AreaSeeder;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\CitySeeder;
+use Database\Seeders\CountrySeeder;
+use Database\Seeders\StateSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,9 +21,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $this->call([
+            CategorySeeder::class,
+            SubcategorySeeder::class,
+            CountrySeeder::class,
+            StateSeeder::class,
+            CitySeeder::class,
+            AreaSeeder::class,
         ]);
     }
 }
